@@ -1,0 +1,22 @@
+services:
+
+    app-prod:
+        image: app-prod:1.0
+        build: ./app
+        ports:
+            - 80:80
+        container_name: app-prod
+
+    mariadb-prod:
+        image: mariadb-prod:1.0
+        build: ./db
+        environment:
+            - MARIADB_RANDOM_ROOT_PASSWORD=yes
+        container_name: mariadb-prod
+        volumes:
+            - mariadb-prod:/var/lib/mysql
+
+volumes:
+    mariadb-prod:
+        driver: local
+        name: mariadb-prod
